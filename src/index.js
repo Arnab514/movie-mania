@@ -3,6 +3,7 @@ const movieReviewData = getMoviesData()
 
 function init(){
     paintStats()
+    movieStats()
 }
     
 
@@ -33,8 +34,39 @@ function paintStats(){
     const spanEl = document.getElementById("tReviews")
     spanEl.classList.add("text-2xl")
     spanEl.innerText = totalReviews
+}
 
 
+function movieStats(){
+    const flatMovieReviewData = movieReviewData.flat()
+
+    const movieListEl = document.querySelector("#movieList UL")
+    
+    flatMovieReviewData.map((movie) => {
+        
+        const liElem = document.createElement("li")
+        liElem.classList.add("bg-gray-300", "border-black", "p-4", "rounded-md", "mb-2")
+
+        const titleElem = document.createElement("p")
+        titleElem.classList.add("text-xl" , "mb-2")
+        titleElem.innerText = `${movie.title} - ${movie.rating}` 
+        liElem.appendChild(titleElem)
+
+        
+        const reviewElem = document.createElement("p")
+        reviewElem.classList.add("text-xl" , "mb-2")
+        reviewElem.innerText = movie.content 
+        liElem.appendChild(reviewElem)
+        
+        const byElem = document.createElement("p")
+        byElem.classList.add("text-xl" , "mb-2")
+        const date = new Date(movie.on)
+        byElem.innerText = `by ${movie.by} on ${date}`
+        liElem.appendChild(byElem)
+        
+        
+        movieListEl.appendChild(liElem)
+    })
 }
 
 init()
